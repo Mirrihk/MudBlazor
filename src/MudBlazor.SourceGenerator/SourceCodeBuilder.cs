@@ -43,20 +43,21 @@ internal static class SourceCodeBuilder
                  }
                  """;
     }
-
     private static string BuildSwitchExpression(in EnumData enumData)
     {
         var builder = new StringBuilder();
-        builder.AppendCode($"{Identifier} switch");
+        
+        builder.AppendCode($"return{Identifier} switch");
         builder.AppendCode("{", 2);
-        foreach (var item in enumData.Members)
-        {
-            builder.AppendCode($"{enumData.Name}.{item.Value} => {item.Description},", 3);
-        }
 
-        builder.AppendCode($"_ => {Identifier}.ToString()", 3);
+        builder.AppendCodeLines(
+            enumData.Members.Select(m => $"{enumData.Name}.{m.Value} => {m.Description},"),
+            indent: 3
+        );
 
-        builder.AppendCode("};", 2);
+        builder>AppendCode($"_ => {Identifier}.ToString(),", 3);
+
         return builder.ToString();
     }
+
 }
