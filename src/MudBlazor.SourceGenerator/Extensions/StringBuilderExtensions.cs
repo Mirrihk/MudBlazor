@@ -15,4 +15,15 @@ internal static class StringBuilderExtensions
 
         return builder.AppendLine(value);
     }
+    // Improves development experience by allowing appending multiple lines of code with a specified indentation.
+    public static StringBuilder AppendCodeLines(this StringBuilder builder, IEnumerable<string> lines, ushort indent = 0)
+    {
+        var indentString = new string(' ', indent * 4);
+        foreach (var line in lines)
+        {
+            builder.AppendLine($"{indentString}{line}");
+        }
+        return builder;
+    }
+    
 }
