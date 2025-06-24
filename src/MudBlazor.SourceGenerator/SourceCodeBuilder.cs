@@ -48,7 +48,6 @@ internal static class SourceCodeBuilder
         var builder = new StringBuilder();
         
         builder.AppendCode($"return{Identifier} switch");
-        
         builder.AppendCode("{", 2);
 
         builder.AppendCodeLines(
